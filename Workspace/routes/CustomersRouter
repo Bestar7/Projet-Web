@@ -1,8 +1,9 @@
 const express = require("express")
 const { sequelize, DataTypes} = require("../util/database");
-const Employees = require("../models/Employees")(sequelize, DataTypes);
+const Customers = require("../models/Customers")(sequelize, DataTypes);
 
 var router = express.Router();
+
 
 /**
  * @param {express.Request} req
@@ -10,27 +11,24 @@ var router = express.Router();
  */
 function createOne(req, res){
   // TODO req.body.eachField != null
-  const LastName = req.body.LastName
-  const FirstName = req.body.FirstName
   sequelize.authenticate()
   .then(() => {
-    // return Employees.create({...req.body});
-    return Employees.create({FirstName, LastName});
-  }).then((employees) => {
-    res.json(employees);
+    return Customers.create({...req.body});
+  }).then((customers) => {
+    res.json(customers);
   }).catch((err) => {
-    console.log("error in POST /employees/\n  "+err);
+    console.log("error in GET /customers/\n  "+err);
   })
 }
 
 function getAll(res){
   sequelize.authenticate()
   .then(() => {
-    return Employees.findAll();
-  }).then((employees) => {
-    res.json(employees);
+    return Customers.findAll()
+  }).then((customers) => {
+    res.json(customers);
   }).catch((err) => {
-    console.log("error in GET /employees/\n  "+err);
+    console.log("error in GET /customers/\n  "+err);
   })
 }
 
@@ -38,11 +36,11 @@ function getOne(req, res){
   const index = parseInt(`${req.params.id}`)
   sequelize.authenticate()
   .then(() => {
-    return Employees.findByPk(index);
-  }).then((employees) => {
-    res.json(employees);
+    return Customers.findByPk(index);
+  }).then((customers) => {
+    res.json(customers);
   }).catch((err) => {
-    console.log("error in GET /employees/id\n  "+err);
+    console.log("error in GET /customers/\n  "+err);
   })
 }
 
@@ -54,5 +52,6 @@ router.get("/", (req, res) => getAll(res))
 
 //READ ONE
 router.get("/:id", (req, res) => {getOne(req, res)})
+
 
 module.exports = router;
