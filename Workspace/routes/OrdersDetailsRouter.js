@@ -12,7 +12,14 @@ function createOne(req, res){
   // TODO req.body.eachField != null
   sequelize.authenticate()
   .then(() => {
-    return OrderDetails.create({...req.body});
+    
+    return OrderDetails.create({
+      "OrderId": req.body.OrderId,
+      "ProductId": req.body.ProductId,
+      "UnitPrice": req.body.UnitPrice,
+      "Quantity": req.body.Quantity,
+      "Discount": req.body.Discount
+    });
   }).then((orderDetails) => {
     res.json(orderDetails)
   }).catch((err) => {
@@ -40,10 +47,11 @@ function getAll(req, res){
  * @param {express.Response} res 
  */
 function getOne(req, res){
-  const id = parseInt(`${req.params.id}`)
+  const order = parseInt(`${req.params.order}`)
+  const product = parseInt(`${req.params.order}`)
   sequelize.authenticate()
   .then(() => {
-    return OrderDetails.findByPk(id);
+    return OrderDetails.findByPk(order, product);
   }).then((orderDetails) => {
     res.json(orderDetails)
   }).catch((err) => {
@@ -71,11 +79,12 @@ function deleteAll(req, res){
  * @param {express.Response} res 
  */
 function deleteOne(req, res){
-  const id = parseInt(`${req.params.id}`)
+  const order = parseInt(`${req.params.order}`)
+  const product = parseInt(`${req.params.order}`)
   sequelize.authenticate()
   .then(() => {
     return OrderDetails.destroy({
-      where : {"EmployeeId": id}
+      where : {"OrderId": order, "ProductId": product } // TODO verif
     });
   }).then((orderDetails) => {
     res.json(orderDetails)
@@ -91,14 +100,14 @@ router.post("/", (req, res) => createOne(req, res))
 router.get("/", (req, res) => getAll(req, res))
 
 //READ ONE
-router.get("/:id", (req, res) => {getOne(req, res)})
+router.get("/:order/:product", (req, res) => {getOne(req, res)})
 
 
 //DELETE ALL // TODO return deleted
 router.delete("/", (req, res) => {deleteAll(req, res)})
 
 //DELETE ONE // TODO return deleted
-router.delete("/:id", (req, res) => {deleteOne(req, res)})
+router.delete("/:order/:product", (req, res) => {deleteOne(req, res)})
 
 
 module.exports = router;

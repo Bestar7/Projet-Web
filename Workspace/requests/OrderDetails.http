@@ -21,7 +21,7 @@ GET {{host}}/order-details
 Accept: application/json
 
 ### READ ONE
-GET {{host}}/order-details/1
+GET {{host}}/order-details/1/1
 Accept: application/json
 
 ### DELETE ALL
@@ -29,5 +29,5 @@ DELETE {{host}}/order-details/
 Accept: application/json
 
 ### DELETE ONE
-DELETE {{host}}/order-details/1
+DELETE {{host}}/order-details/1/1
 Accept: application/json
