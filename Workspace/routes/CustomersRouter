@@ -4,17 +4,54 @@ const Customers = require("../models/Customers")(sequelize, DataTypes);
 
 var router = express.Router();
 
-// Routes. These blocks should be placed in different files under "routes/" directory
-// but let's keep this simple.
-router.get("/", (request, response) => {
+
+/**
+ * @param {express.Request} req
+ * @param {express.Response} res 
+ */
+function createOne(req, res){
+  // TODO req.body.eachField != null
   sequelize.authenticate()
   .then(() => {
-    return Customers.findAll()
-  }).then((employees) => {
-    response.json(employees);
+    return Customers.create({...req.body});
+  }).then((customers) => {
+    res.json(customers);
   }).catch((err) => {
     console.log("error in GET /customers/\n  "+err);
   })
-})
+}
+
+function getAll(res){
+  sequelize.authenticate()
+  .then(() => {
+    return Customers.findAll()
+  }).then((customers) => {
+    res.json(customers);
+  }).catch((err) => {
+    console.log("error in GET /customers/\n  "+err);
+  })
+}
+
+function getOne(req, res){
+  const index = parseInt(`${req.params.id}`)
+  sequelize.authenticate()
+  .then(() => {
+    return Customers.findByPk(index);
+  }).then((customers) => {
+    res.json(customers);
+  }).catch((err) => {
+    console.log("error in GET /customers/\n  "+err);
+  })
+}
+
+//CREATE ONE
+router.post("/", (req, res) => createOne(req, res))
+
+//READ ALL
+router.get("/", (req, res) => getAll(res))
+
+//READ ONE
+router.get("/:id", (req, res) => {getOne(req, res)})
+
 
 module.exports = router;

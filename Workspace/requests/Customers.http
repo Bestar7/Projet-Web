@@ -4,19 +4,18 @@
 
 
 ### CREATE ONE
-POST {{host}}/employees
+POST {{host}}/customers
 Accept: application/json
 Content-Type: application/json
 
 {
-  "LastName": "Paul",
-  "FirstName": "Paul"
+  "CompanyName": "bonjour"
 }
 
 ### READ ALL
-GET {{host}}/employees
+GET {{host}}/customers
 Accept: application/json
 
 ### READ ONE
-GET {{host}}/employees/1
+GET {{host}}/customers/1
 Accept: application/json
