@@ -1,11 +1,14 @@
-const Sequelize = require('sequelize');
+const DataTypes = require('sequelize');
+//const { sequelize, DataTypes} = require("../util/database");
+//const { sequelize, DataTypes} = require("../util/database");
 /**
  * 
  * @param {Sequelize.Sequelize} sequelize 
  * @param {Employees} DataTypes 
  * @returns 
  */
-module.exports = function(sequelize, DataTypes) {
+module.exports = function(sequelize) {
+//module.exports = function(sequelize, DataTypes) {
   return sequelize.define('Employees', {
     EmployeeId: {
       autoIncrement: true,

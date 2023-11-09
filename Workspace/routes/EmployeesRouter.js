@@ -1,6 +1,6 @@
 const express = require("express")
 const { sequelize, DataTypes} = require("../util/database");
-const { DataTypes } = require("sequelize");
+//const { DataTypes } = require("sequelize");
 //const Customers = require("../models/Customers")(sequelize, DataTypes);
 const Employees = require("../models/Employees")(sequelize, DataTypes);
 
@@ -10,7 +10,6 @@ var router = express.Router();
 // Routes. These blocks should be placed in different files under "routes/" directory
 // but let's keep this simple.
 router.get("/", (request, response) => {
-  
   sequelize.authenticate()
   .then(() => {
     //Customers.findAll()

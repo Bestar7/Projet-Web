@@ -1,0 +1,4 @@
+Workspace/node_modules/
+.vscode/
+*.lnk
+*.code-workspace

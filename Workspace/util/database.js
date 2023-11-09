@@ -8,7 +8,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const CONFIG = require('../config/config.json')
 
-const sequelize = new Sequelize(
+module.exports.sequelize = new Sequelize(
+//const sequelize = new Sequelize(
   CONFIG.POSTGRES.database, CONFIG.POSTGRES.username, CONFIG.POSTGRES.password,
   {
     host: CONFIG.POSTGRES.host,
@@ -16,7 +17,9 @@ const sequelize = new Sequelize(
   }
 );
 
-const Employees = require('../models/Employees');
-Employees(sequelize, DataTypes);
+module.exports.DataTypes = DataTypes;
 
-module.exports = sequelize;
+//const Employees = require('../models/Employees');
+//Employees(sequelize, DataTypes);
+
+//module.exports = sequelize;
