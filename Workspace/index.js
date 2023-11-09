@@ -9,7 +9,10 @@ app.listen(PORT, () => {
 })
 
 const EmployeesRouter = require('./routes/EmployeesRouter')
-app.use('/', EmployeesRouter)
+app.use('/employees', EmployeesRouter)
+
+const CustomersRouter = require('./routes/CustomersRouter')
+app.use('/customers', CustomersRouter)
 /*
 const express = require("express")
 const morgan = require('morgan')
