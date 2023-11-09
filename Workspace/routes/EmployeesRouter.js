@@ -1,6 +1,5 @@
 const express = require("express")
 const { sequelize, DataTypes} = require("../util/database");
-//const Customers = require("../models/Customers")(sequelize, DataTypes);
 const Employees = require("../models/Employees")(sequelize, DataTypes);
 
 var router = express.Router();
@@ -10,12 +9,11 @@ var router = express.Router();
 router.get("/", (request, response) => {
   sequelize.authenticate()
   .then(() => {
-    //Customers.findAll()
     return Employees.findAll();
   }).then((employees) => {
     response.json(employees);
   }).catch((err) => {
-      console.log("$$$$$$ findAll()\n  "+err);
+    console.log("error in GET /employees/\n  "+err);
   })
 })
 
