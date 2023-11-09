@@ -20,10 +20,10 @@ Accept: application/json
 GET {{host}}/orders/1
 Accept: application/json
 
-### DELETE ALL
+### DELETE ALL // TODO fix
 DELETE {{host}}/orders/
 Accept: application/json
 
 ### DELETE ONE
-DELETE {{host}}/orders/1
+DELETE {{host}}/orders/5
 Accept: application/json

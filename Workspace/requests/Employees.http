@@ -9,7 +9,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "LastName": "Paul",
+  "LastName": "Paul2",
   "FirstName": "Paul"
 }
 
@@ -21,10 +21,10 @@ Accept: application/json
 GET {{host}}/employees/1
 Accept: application/json
 
-### DELETE ALL
+### DELETE ALL  // TODO fix
 DELETE {{host}}/employees/
 Accept: application/json
 
 ### DELETE ONE
-DELETE {{host}}/employees/1
+DELETE {{host}}/employees/2
 Accept: application/json

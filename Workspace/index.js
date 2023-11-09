@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+app.use(express.json())
 
 /*
 const morgan = require('morgan')
@@ -7,7 +8,6 @@ const logger = morgan(':method :url :status :res[content-length] - :response-tim
 morgan.token('body', (request) => {
   return JSON.stringify(request.body)
 })
-app.use(express.json())
 app.use(logger)
 */
 
@@ -29,3 +29,6 @@ app.use('/customers', CustomersRouter)
 
 const OrdersRouter = require('./routes/OrdersRouter')
 app.use('/orders', OrdersRouter)
+
+const ProductsRouter = require('./routes/ProductsRouter')
+app.use('/products', ProductsRouter)
