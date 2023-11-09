@@ -1,0 +1,33 @@
+{
+  "name": "projet-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./index.js",
+    "start": "node ./index.js"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "data/*"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.0.1",
+    "path": "^0.12.7",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.34.0",
+    "sequelize-auto": "^0.8.8",
+    "sequelize-cli": "^6.6.2"
+  },
+  "devDependencies": {
+    "@types/sequelize": "^4.28.18",
+    "typescript": "^5.2.2"
+  }
+}

@@ -1,0 +1,12 @@
+npx sequelize-auto -h localhost -d ProjetWeb -u postgres -x Mcs1ap65 -p 5432 --dialect postgres -o "./models" 
+
+
+sequelize-auto 
+-h localhost
+-d ProjetWeb 
+-u postgres
+-x [Mcs1ap65] 
+-p [5432]  
+--dialect postgres
+-o "./models" 
+-t [color]

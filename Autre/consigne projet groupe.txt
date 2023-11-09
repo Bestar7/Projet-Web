@@ -1,0 +1,10 @@
+GET PUT POST DELETE
+
+Employee
+Order
+Customer
+Order details
+Products
+
+Alesio-Prisma, Corentin-Knex, Moi-Sequelize
+NodeJs, Express, 

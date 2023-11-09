@@ -1,0 +1,11 @@
+{
+  "PORT" : 3001,
+  "POSTGRES" : {
+    "host" : "localhost",
+    "port" : "5432",
+    "database" : "ProjetWeb",
+    "dialect" : "postgres",
+    "username" : "postgres",
+    "password" : "Mcs1ap65"  
+  }
+}
