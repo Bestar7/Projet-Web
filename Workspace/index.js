@@ -23,3 +23,6 @@ app.use('/employees', EmployeesRouter)
 
 const CustomersRouter = require('./routes/CustomersRouter')
 app.use('/customers', CustomersRouter)
+
+const OrdersRouter = require('./routes/OrdersRouter')
+app.use('/orders', OrdersRouter)

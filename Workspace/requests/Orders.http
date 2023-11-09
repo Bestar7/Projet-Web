@@ -1,0 +1,29 @@
+@hostname = localhost
+@port = 3001
+@host = http://{{hostname}}:{{port}}
+
+
+### CREATE ONE
+POST {{host}}/orders
+Accept: application/json
+Content-Type: application/json
+
+{
+  "ShipName": "Order ship"
+}
+
+### READ ALL
+GET {{host}}/orders
+Accept: application/json
+
+### READ ONE
+GET {{host}}/orders/1
+Accept: application/json
+
+### DELETE ALL
+DELETE {{host}}/orders/
+Accept: application/json
+
+### DELETE ONE
+DELETE {{host}}/orders/1
+Accept: application/json
