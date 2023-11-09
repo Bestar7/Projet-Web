@@ -4,7 +4,7 @@ const Sequelize = require('sequelize'); // pour l'auto-complete
  * 
  * @param {Sequelize.Sequelize} sequelize 
  * @param {Employees} DataTypes 
- * @returns {ModelCtor<Model<any, any>>} an employe
+ * @returns
  */
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('Employees', {
