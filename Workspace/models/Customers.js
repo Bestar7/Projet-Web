@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize'); // pour l'auto-complete
 
 /**
  * 
