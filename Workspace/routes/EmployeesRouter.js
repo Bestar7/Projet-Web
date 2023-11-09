@@ -61,7 +61,7 @@ function getOne(req, res){
 function deleteAll(req, res){
   sequelize.authenticate()
   .then(() => {
-    return Employees.detroy()
+    return Employees.destroy()
   }).then((employees) => {
     res.json(employees)
   }).catch((err) => {
@@ -77,7 +77,7 @@ function deleteOne(req, res){
   const id = parseInt(`${req.params.id}`)
   sequelize.authenticate()
   .then(() => {
-    return Employees.detroy({
+    return Employees.destroy({
       where : {"EmployeeId": id}
     });
   }).then((employees) => {
@@ -97,10 +97,10 @@ router.get("/", (req, res) => getAll(req, res))
 router.get("/:id", (req, res) => {getOne(req, res)})
 
 
-//DELETE ALL
+//DELETE ALL // TODO return deleted
 router.delete("/", (req, res) => {deleteAll(req, res)})
 
-//DELETE ONE
+//DELETE ONE // TODO return deleted
 router.delete("/:id", (req, res) => {deleteOne(req, res)})
 
 

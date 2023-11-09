@@ -59,7 +59,7 @@ function getOne(req, res){
 function deleteAll(req, res){
   sequelize.authenticate()
   .then(() => {
-    return Customers.detroy()
+    return Customers.destroy()
   }).then((customers) => {
     res.json(customers)
   }).catch((err) => {
@@ -76,7 +76,7 @@ function deleteOne(req, res){
   sequelize.authenticate()
   .then(() => {
     //return Customers.findByPk(id).detroy()
-    return Customers.detroy({where : {"CustomerId": id}})
+    return Customers.destroy({where : {"CustomerId": id}})
   }).then((customers) => {
     res.json(customers)
   }).catch((err) => {
@@ -95,10 +95,10 @@ router.get("/", (req, res) => getAll(req, res))
 router.get("/:id", (req, res) => {getOne(req, res)})
 
 
-//DELETE ALL
+//DELETE ALL // TODO return deleted
 router.delete("/", (req, res) => {deleteAll(req, res)})
 
-//DELETE ONE
+//DELETE ONE // TODO return deleted
 router.delete("/:id", (req, res) => {deleteOne(req, res)})
 
 
