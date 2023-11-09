@@ -75,9 +75,8 @@ function deleteOne(req, res){
   const id = parseInt(`${req.params.id}`)
   sequelize.authenticate()
   .then(() => {
-    return Customers.detroy({
-      where : {"CustomerId": id}
-    })
+    //return Customers.findByPk(id).detroy()
+    return Customers.detroy({where : {"CustomerId": id}})
   }).then((customers) => {
     res.json(customers)
   }).catch((err) => {
