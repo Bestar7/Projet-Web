@@ -19,3 +19,11 @@ Accept: application/json
 ### READ ONE
 GET {{host}}/customers/1
 Accept: application/json
+
+### DELETE ALL
+DELETE {{host}}/customers/
+Accept: application/json
+
+### DELETE ONE
+DELETE {{host}}/customers/12
+Accept: application/json

@@ -1,10 +1,10 @@
 const express = require("express")
-const { sequelize, DataTypes} = require("../util/database");
-const Employees = require("../models/Employees")(sequelize, DataTypes);
+const { sequelize, DataTypes} = require("../util/database")
+const Employees = require("../models/Employees")(sequelize, DataTypes)
 
-var router = express.Router();
+var router = express.Router()
 
-/**
+/** CREATE
  * @param {express.Request} req
  * @param {express.Response} res 
  */
@@ -17,32 +17,73 @@ function createOne(req, res){
     // return Employees.create({...req.body});
     return Employees.create({FirstName, LastName});
   }).then((employees) => {
-    res.json(employees);
+    res.json(employees)
   }).catch((err) => {
-    console.log("error in POST /employees/\n  "+err);
+    console.log("error in POST /employees/\n  "+err)
   })
 }
 
-function getAll(res){
+/** READ ALL
+ * @param {express.Request} req
+ * @param {express.Response} res 
+ */
+function getAll(req, res){
   sequelize.authenticate()
   .then(() => {
     return Employees.findAll();
   }).then((employees) => {
-    res.json(employees);
+    res.json(employees)
   }).catch((err) => {
-    console.log("error in GET /employees/\n  "+err);
+    console.log("error in GET /employees/\n  "+err)
   })
 }
 
+/** READ ONE
+ * @param {express.Request} req
+ * @param {express.Response} res 
+ */
 function getOne(req, res){
-  const index = parseInt(`${req.params.id}`)
+  const id = parseInt(`${req.params.id}`)
   sequelize.authenticate()
   .then(() => {
-    return Employees.findByPk(index);
+    return Employees.findByPk(id);
   }).then((employees) => {
-    res.json(employees);
+    res.json(employees)
   }).catch((err) => {
-    console.log("error in GET /employees/id\n  "+err);
+    console.log("error in GET /employees/id\n  "+err)
+  })
+}
+
+/** DELETE ALL
+ * @param {express.Request} req
+ * @param {express.Response} res 
+ */
+function deleteAll(req, res){
+  sequelize.authenticate()
+  .then(() => {
+    return Employees.destroy()
+  }).then((employees) => {
+    res.json(employees)
+  }).catch((err) => {
+    console.log("error in DELETE /employees/\n  "+err)
+  })
+}
+
+/** DELETE ONE
+ * @param {express.Request} req
+ * @param {express.Response} res 
+ */
+function deleteOne(req, res){
+  const id = parseInt(`${req.params.id}`)
+  sequelize.authenticate()
+  .then(() => {
+    return Employees.destroy({
+      where : {"EmployeeId": id}
+    });
+  }).then((employees) => {
+    res.json(employees)
+  }).catch((err) => {
+    console.log("error in DELETE /employees/id\n  "+err)
   })
 }
 
@@ -50,9 +91,17 @@ function getOne(req, res){
 router.post("/", (req, res) => createOne(req, res))
 
 //READ ALL
-router.get("/", (req, res) => getAll(res))
+router.get("/", (req, res) => getAll(req, res))
 
 //READ ONE
 router.get("/:id", (req, res) => {getOne(req, res)})
+
+
+//DELETE ALL // TODO return deleted
+router.delete("/", (req, res) => {deleteAll(req, res)})
+
+//DELETE ONE // TODO return deleted
+router.delete("/:id", (req, res) => {deleteOne(req, res)})
+
 
 module.exports = router;
