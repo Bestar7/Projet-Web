@@ -12,14 +12,7 @@ function createOne(req, res){
   // TODO req.body.eachField != null
   sequelize.authenticate()
   .then(() => {
-    
-    return OrderDetails.create({
-      "OrderId": req.body.OrderId,
-      "ProductId": req.body.ProductId,
-      "UnitPrice": req.body.UnitPrice,
-      "Quantity": req.body.Quantity,
-      "Discount": req.body.Discount
-    });
+    return OrderDetails.create({...req.body});
   }).then((orderDetails) => {
     res.json(orderDetails)
   }).catch((err) => {
@@ -47,15 +40,13 @@ function getAll(req, res){
  * @param {express.Response} res 
  */
 function getOne(req, res){
-  const order = parseInt(`${req.params.order}`)
-  const product = parseInt(`${req.params.order}`)
   sequelize.authenticate()
   .then(() => {
-    return OrderDetails.findByPk(order, product);
+    return OrderDetails.findOne({where:{...req.params}})
   }).then((orderDetails) => {
     res.json(orderDetails)
   }).catch((err) => {
-    console.log("error in GET /orderDetails/id\n  "+err)
+    console.log("error in GET /orderDetails/one\n  "+err)
   })
 }
 
@@ -64,6 +55,9 @@ function getOne(req, res){
  * @param {express.Response} res 
  */
 function deleteAll(req, res){
+  if (req.params != null)
+    return deleteOne(req, res)
+
   sequelize.authenticate()
   .then(() => {
     return OrderDetails.destroy()
@@ -79,17 +73,14 @@ function deleteAll(req, res){
  * @param {express.Response} res 
  */
 function deleteOne(req, res){
-  const order = parseInt(`${req.params.order}`)
-  const product = parseInt(`${req.params.order}`)
   sequelize.authenticate()
   .then(() => {
-    return OrderDetails.destroy({
-      where : {"OrderId": order, "ProductId": product } // TODO verif
-    });
+    return OrderDetails.destroy({where : {...req.params }}); // TODO verif
+    
   }).then((orderDetails) => {
     res.json(orderDetails)
   }).catch((err) => {
-    console.log("error in DELETE /orderDetails/id\n  "+err)
+    console.log("error in DELETE /orderDetails/one\n  "+err)
   })
 }
 
@@ -100,14 +91,14 @@ router.post("/", (req, res) => createOne(req, res))
 router.get("/", (req, res) => getAll(req, res))
 
 //READ ONE
-router.get("/:order/:product", (req, res) => {getOne(req, res)})
+router.get("/:OrderId/:ProductId", (req, res) => {getOne(req, res)})
 
 
 //DELETE ALL // TODO return deleted
 router.delete("/", (req, res) => {deleteAll(req, res)})
 
 //DELETE ONE // TODO return deleted
-router.delete("/:order/:product", (req, res) => {deleteOne(req, res)})
+router.delete("/:OrderId/:ProductId", (req, res) => {deleteOne(req, res)})
 
 
 module.exports = router;

@@ -17,7 +17,7 @@ function createOne(req, res){
   }).then((customers) => {
     res.json(customers)
   }).catch((err) => {
-    console.log("error in GET /customers/\n  "+err)
+    console.log("error in POST /customers/\n  "+err)
   })
 }
 

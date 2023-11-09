@@ -40,10 +40,10 @@ function getAll(req, res){
  * @param {express.Response} res 
  */
 function getOne(req, res){
-  const id = parseInt(`${req.params.id}`)
+  // TODO check req.params.OrderId
   sequelize.authenticate()
   .then(() => {
-    return Orders.findByPk(id);
+    return Orders.findByPk(req.params.OrderId);
   }).then((orders) => {
     res.json(orders)
   }).catch((err) => {
@@ -71,11 +71,11 @@ function deleteAll(req, res){
  * @param {express.Response} res 
  */
 function deleteOne(req, res){
-  const id = parseInt(`${req.params.id}`)
+  // TODO CHECK all req.params
   sequelize.authenticate()
   .then(() => {
     return Orders.destroy({
-      where : {"EmployeeId": id}
+      where : {...req.params}
     });
   }).then((orders) => {
     res.json(orders)
@@ -91,14 +91,14 @@ router.post("/", (req, res) => createOne(req, res))
 router.get("/", (req, res) => getAll(req, res))
 
 //READ ONE
-router.get("/:id", (req, res) => {getOne(req, res)})
+router.get("/:OrderId", (req, res) => {getOne(req, res)})
 
 
 //DELETE ALL // TODO return deleted
 router.delete("/", (req, res) => {deleteAll(req, res)})
 
 //DELETE ONE // TODO return deleted
-router.delete("/:id", (req, res) => {deleteOne(req, res)})
+router.delete("/:OrderId", (req, res) => {deleteOne(req, res)})
 
 
 module.exports = router;

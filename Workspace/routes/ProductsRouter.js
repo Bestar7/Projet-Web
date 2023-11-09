@@ -1,8 +1,9 @@
 const express = require("express")
 const { sequelize, DataTypes} = require("../util/database")
-const Employees = require("../models/Employees")(sequelize, DataTypes)
+const Products = require("../models/Products")(sequelize, DataTypes)
 
 var router = express.Router()
+
 
 /** CREATE
  * @param {express.Request} req
@@ -12,11 +13,11 @@ function createOne(req, res){
   // TODO req.body.eachField != null
   sequelize.authenticate()
   .then(() => {
-    return Employees.create({...req.body});
-  }).then((employees) => {
-    res.json(employees)
+    return Products.create({...req.body});
+  }).then((products) => {
+    res.json(products)
   }).catch((err) => {
-    console.log("error in POST /employees/\n  "+err)
+    console.log("error in POST /products/\n  "+err)
   })
 }
 
@@ -27,11 +28,11 @@ function createOne(req, res){
 function getAll(req, res){
   sequelize.authenticate()
   .then(() => {
-    return Employees.findAll();
-  }).then((employees) => {
-    res.json(employees)
+    return Products.findAll()
+  }).then((products) => {
+    res.json(products)
   }).catch((err) => {
-    console.log("error in GET /employees/\n  "+err)
+    console.log("error in GET /products/\n  "+err)
   })
 }
 
@@ -43,11 +44,11 @@ function getOne(req, res){
   const id = parseInt(`${req.params.id}`)
   sequelize.authenticate()
   .then(() => {
-    return Employees.findByPk(id);
-  }).then((employees) => {
-    res.json(employees)
+    return Products.findByPk(id);
+  }).then((products) => {
+    res.json(products)
   }).catch((err) => {
-    console.log("error in GET /employees/id\n  "+err)
+    console.log("error in GET /products/\n  "+err)
   })
 }
 
@@ -58,11 +59,11 @@ function getOne(req, res){
 function deleteAll(req, res){
   sequelize.authenticate()
   .then(() => {
-    return Employees.destroy()
-  }).then((employees) => {
-    res.json(employees)
+    return Products.destroy()
+  }).then((products) => {
+    res.json(products)
   }).catch((err) => {
-    console.log("error in DELETE /employees/\n  "+err)
+    console.log("error in DELETE /products/\n  "+err)
   })
 }
 
@@ -74,15 +75,15 @@ function deleteOne(req, res){
   const id = parseInt(`${req.params.id}`)
   sequelize.authenticate()
   .then(() => {
-    return Employees.destroy({
-      where : {"EmployeeId": id}
-    });
-  }).then((employees) => {
-    res.json(employees)
+    //return Products.findByPk(id).detroy()
+    return Products.destroy({where : {"ProductId": id}})
+  }).then((products) => {
+    res.json(products)
   }).catch((err) => {
-    console.log("error in DELETE /employees/id\n  "+err)
+    console.log("error in DELETE /products/id\n  "+err);
   })
 }
+
 
 //CREATE ONE
 router.post("/", (req, res) => createOne(req, res))
