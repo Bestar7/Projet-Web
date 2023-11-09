@@ -18,6 +18,9 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
 
+const OrdersDetailsRouter = require('./routes/OrdersDetailsRouter')
+app.use('/order-details', OrdersDetailsRouter)
+
 const EmployeesRouter = require('./routes/EmployeesRouter')
 app.use('/employees', EmployeesRouter)
 
