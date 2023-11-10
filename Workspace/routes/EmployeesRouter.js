@@ -56,9 +56,15 @@ function getOne(req, res){
  * @param {express.Response} res 
  */
 function deleteAll(req, res){
+  const condition = {where : {}}
   sequelize.authenticate()
   .then(() => {
-    return Employees.destroy({where : {}})
+    Employees.findAll(condition)
+    .then((result) => {
+      Employees.destroy(condition)
+      // destroy only return the number of delete
+      return result
+    })
   }).then((employees) => {
     res.json(employees)
   }).catch((err) => {
@@ -74,13 +80,16 @@ function deleteOne(req, res){
   const id = parseInt(`${req.params.id}`)
   sequelize.authenticate()
   .then(() => {
-    return Employees.destroy({
-      where : {"EmployeeId": id}
-    });
-  }).then((employees) => {
-    res.json(employees)
-  }).catch((err) => {
-    console.log("error in DELETE /employees/id\n  "+err)
+    Employees.findOne({where : {"EmployeeId": id}})
+    .then((result) => {
+      Employees.destroy({where : {"EmployeeId": id}})
+      // destroy only return the number of delete
+      return result
+    }).then((employees) => {
+      res.json(employees)
+    }).catch((err) => {
+      console.log("error in DELETE /employees/id\n  "+err)
+    })
   })
 }
 
