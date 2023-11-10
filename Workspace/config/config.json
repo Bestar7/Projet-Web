@@ -1,11 +1,11 @@
 {
   "PORT" : 3001,
   "POSTGRES" : {
-    "host" : "localhost",
+    "host" : "flora.db.elephantsql.com",
     "port" : "5432",
-    "database" : "ProjetWeb",
+    "database" : "zpxpphgh",
     "dialect" : "postgres",
-    "username" : "postgres",
-    "password" : "Mcs1ap65"  
+    "username" : "zpxpphgh",
+    "password" : "tZhopu85mNOkTVeqYhTBbqJ_78Z43anx"  
   }
 }
