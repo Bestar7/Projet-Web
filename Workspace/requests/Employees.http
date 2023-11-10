@@ -21,7 +21,7 @@ Accept: application/json
 GET {{host}}/employees/1
 Accept: application/json
 
-### DELETE ALL  // TODO fix
+### DELETE ALL
 DELETE {{host}}/employees/
 Accept: application/json
 

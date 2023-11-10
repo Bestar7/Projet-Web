@@ -3,13 +3,13 @@
 @host = http://{{hostname}}:{{port}}
 
 
-### CREATE ONE // TODO fix
+### CREATE ONE
 POST {{host}}/customers
 Accept: application/json
 Content-Type: application/json
 
 {
-  "CompanyName": "bondjour"
+  "CompanyName": "bonkjour"
 }
 
 ### READ ALL
@@ -20,7 +20,7 @@ Accept: application/json
 GET {{host}}/customers/1
 Accept: application/json
 
-### DELETE ALL // TODO fix
+### DELETE ALL
 DELETE {{host}}/customers/
 Accept: application/json
 

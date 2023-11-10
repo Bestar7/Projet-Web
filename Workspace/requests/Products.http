@@ -18,13 +18,13 @@ GET {{host}}/products
 Accept: application/json
 
 ### READ ONE
-GET {{host}}/products/2
+GET {{host}}/products/4
 Accept: application/json
 
-### DELETE ALL // TODO fix
+### DELETE ALL // TODO return deleted elem
 DELETE {{host}}/products/
 Accept: application/json
 
 ### DELETE ONE // TODO return deleted elem
-DELETE {{host}}/products/7
+DELETE {{host}}/products/4
 Accept: application/json

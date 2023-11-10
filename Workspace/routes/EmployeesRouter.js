@@ -58,7 +58,7 @@ function getOne(req, res){
 function deleteAll(req, res){
   sequelize.authenticate()
   .then(() => {
-    return Employees.destroy()
+    return Employees.destroy({where : {}})
   }).then((employees) => {
     res.json(employees)
   }).catch((err) => {

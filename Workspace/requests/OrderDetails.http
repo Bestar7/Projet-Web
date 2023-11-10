@@ -9,8 +9,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "OrderId": 2,
-  "ProductId": 2,
+  "OrderId": 4,
+  "ProductId": 4,
   "UnitPrice": 1,
   "Quantity": 3,
   "Discount": 0
@@ -21,7 +21,7 @@ GET {{host}}/order-details
 Accept: application/json
 
 ### READ ONE
-GET {{host}}/order-details/2/2
+GET {{host}}/order-details/4/4
 Accept: application/json
 
 ### DELETE ALL
@@ -29,5 +29,5 @@ DELETE {{host}}/order-details/
 Accept: application/json
 
 ### DELETE ONE
-DELETE {{host}}/order-details/2/2
+DELETE {{host}}/order-details/4/4
 Accept: application/json

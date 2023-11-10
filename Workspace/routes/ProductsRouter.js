@@ -59,7 +59,7 @@ function getOne(req, res){
 function deleteAll(req, res){
   sequelize.authenticate()
   .then(() => {
-    return Products.destroy()
+    return Products.destroy({where : {}})
   }).then((products) => {
     res.json(products)
   }).catch((err) => {
