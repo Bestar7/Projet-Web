@@ -59,11 +59,13 @@ function getOne(req, res){
 function deleteAll(req, res){
   sequelize.authenticate()
   .then(() => {
-    return Products.destroy({where : {}})
-  }).then((products) => {
-    res.json(products)
+    Products.findAll()
+    .then((result) => {
+      Products.destroy({where : {}}) // TODO verif destroy works
+      return result
+    }).then((products) => {res.json(products)})
   }).catch((err) => {
-    console.log("error in DELETE /products/\n  "+err)
+    console.log("error in DELETE /products/id\n  "+err);
   })
 }
 

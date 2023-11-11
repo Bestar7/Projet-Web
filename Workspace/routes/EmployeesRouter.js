@@ -56,12 +56,11 @@ function getOne(req, res){
  * @param {express.Response} res 
  */
 function deleteAll(req, res){
-  const condition = {where : {}}
   sequelize.authenticate()
   .then(() => {
     Employees.findAll()
     .then((result) => {
-      Employees.destroy(condition)
+      Employees.destroy({where : {}}) // TODO verif destroy works
       return result
     }).then((employees) => {res.json(employees)})
   }).catch((err) => {
