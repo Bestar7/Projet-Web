@@ -59,14 +59,11 @@ function deleteAll(req, res){
   const condition = {where : {}}
   sequelize.authenticate()
   .then(() => {
-    Employees.findAll(condition)
+    Employees.findAll()
     .then((result) => {
       Employees.destroy(condition)
-      // destroy only return the number of delete
       return result
-    })
-  }).then((employees) => {
-    res.json(employees)
+    }).then((employees) => {res.json(employees)})
   }).catch((err) => {
     console.log("error in DELETE /employees/\n  "+err)
   })
