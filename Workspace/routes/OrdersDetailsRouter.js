@@ -55,16 +55,15 @@ function getOne(req, res){
  * @param {express.Response} res 
  */
 function deleteAll(req, res){
-  if (req.params != null)
-    return deleteOne(req, res)
-
   sequelize.authenticate()
   .then(() => {
-    return OrderDetails.destroy({where : {}})
-  }).then((orderDetails) => {
-    res.json(orderDetails)
+    OrderDetails.findAll()
+    .then((result) => {
+      OrderDetails.destroy({where : {}}) // TODO verif destroy works
+      return result
+    }).then((orderDetails) => {res.json(orderDetails)})
   }).catch((err) => {
-    console.log("error in DELETE /orderDetails/\n  "+err)
+    console.log("error in DELETE /orderDetails/id\n  "+err);
   })
 }
 
