@@ -69,24 +69,6 @@ function deleteAll(req, res){
   })
 }
 
-/** //TODO DELETE WHERE is used as next
- * @param {express.Request} req
- * @param {express.Response} res 
- */
-function deleteWhere(req, res){
-  const ok = req.params.where
-  sequelize.authenticate()
-  .then(() => {
-    Customers.findAll()
-    .then((result) => {
-      Customers.destroy({where : {ok}}) // TODO verif destroy works
-      return result
-    }).then((customers) => {res.json(customers)})
-  }).catch((err) => {
-    console.log("error in DELETE /customers/id\n  "+err);
-  })
-}
-
 /** DELETE ONE
  * @param {express.Request} req
  * @param {express.Response} res 
@@ -108,13 +90,19 @@ function deleteOne(req, res){
 /** MIDDLEWARE cndtnHandler
  * @param {express.Request} req
  * @param {express.Response} res 
- * @param {express.} next 
+ * @param {express.NextFunction} next 
  */ // TODO check param (Year) exist in Customer.Module
 function cndtnHandler(req, res, next){
   var cndtn = { where : { }}
 
   for (var propName in req.query) {
     if (req.query.hasOwnProperty(propName)) {
+      if (propName == "Pas Customer condition"){
+        res.send(
+
+        )
+      }
+
       cndtn.where = {...cndtn.where, [propName] : req.query[propName]}
       console.log("condition = ", propName, req.query[propName]);
     }
@@ -123,12 +111,6 @@ function cndtnHandler(req, res, next){
   req.where = cndtn
   next()
 }
-/*
-where: {
-  authorId: 12,
-  status: 'active'
-}
-*/
 
 //CREATE ONE
 router.post("/", (req, res) => createOne(req, res))
