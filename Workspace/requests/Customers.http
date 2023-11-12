@@ -9,11 +9,26 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "CompanyName": "bonkjour"
+  "CompanyName": "bonkur"
+}
+
+### CREATE ONE WHERE
+POST {{host}}/customers
+Accept: application/json
+Content-Type: application/json
+
+{
+  "CompanyName": "bonkur",
+  "Country": "URL",
+  "City": "FuckYou"
 }
 
 ### READ ALL
 GET {{host}}/customers
+Accept: application/json
+
+### READ WHERE
+GET {{host}}/customers/cndtn?Country=URL&City=FuckYou
 Accept: application/json
 
 ### READ ONE
@@ -25,5 +40,5 @@ DELETE {{host}}/customers/
 Accept: application/json
 
 ### DELETE ONE
-DELETE {{host}}/customers/12
+DELETE {{host}}/customers/16
 Accept: application/json

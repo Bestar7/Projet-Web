@@ -9,8 +9,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "OrderId": 4,
-  "ProductId": 4,
+  "OrderId": 10,
+  "ProductId": 10,
   "UnitPrice": 1,
   "Quantity": 3,
   "Discount": 0
@@ -18,6 +18,10 @@ Content-Type: application/json
 
 ### READ ALL
 GET {{host}}/order-details
+Accept: application/json
+
+### READ WHERE
+GET {{host}}/order-details/cndtn?Quantity=3
 Accept: application/json
 
 ### READ ONE

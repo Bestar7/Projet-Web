@@ -9,11 +9,17 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "ShipName": "Order ship"
+  "ShipName": "Order ship",
+  "ShipCity": "ABC"
 }
+
 
 ### READ ALL
 GET {{host}}/orders
+Accept: application/json
+
+### READ WHERE
+GET {{host}}/orders/cndtn?ShipCity=ABC
 Accept: application/json
 
 ### READ ONE

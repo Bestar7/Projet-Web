@@ -26,5 +26,5 @@ DELETE {{host}}/employees/
 Accept: application/json
 
 ### DELETE ONE
-DELETE {{host}}/employees/2
+DELETE {{host}}/employees/27
 Accept: application/json

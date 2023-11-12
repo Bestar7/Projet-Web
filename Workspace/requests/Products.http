@@ -9,12 +9,17 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "ProductName": "potato3",
-  "Discontinued": false
+  "ProductName": "potato nul",
+  "Discontinued": false,
+  "UnitsOnOrder": 3
 }
 
 ### READ ALL
 GET {{host}}/products
+Accept: application/json
+
+### READ WHERE
+GET {{host}}/products/cndtn?Discontinued=false
 Accept: application/json
 
 ### READ ONE
