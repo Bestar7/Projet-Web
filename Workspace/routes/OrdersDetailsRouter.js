@@ -1,6 +1,6 @@
 const express = require("express")
 const { sequelize, DataTypes} = require("../util/database")
-const OrderDetails = require("../models/Order-Details")(sequelize, DataTypes)
+const OrderDetails = require("../models/Order_Details")(sequelize, DataTypes)
 const { cndtnHandler } = require('./MiddleWare')
 
 var router = express.Router()

@@ -1,32 +1,22 @@
 const { Sequelize, DataTypes } = require('sequelize'); // pour l'auto-complete
-//const Product = require('./Products')(Sequelize, DataTypes)
 
 /**
  * 
  * @param {Sequelize} sequelize 
- * @param {Order-Details} DataTypes 
+ * @param {Employees} DataTypes 
  * @returns
- */ // TODO : DROP CASCADE THIS
+ */
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Order-Details', {
-  //const OrderDetails = sequelize.define('Order-Details', {
+  return sequelize.define('Order_Details', {
     OrderId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'Orders',
-        key: 'OrderId'
-      }
+      primaryKey: true
     },
     ProductId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: 'Products',
-        key: 'ProductId'
-      }
+      primaryKey: true
     },
     UnitPrice: {
       type: DataTypes.DECIMAL(19,4),
@@ -42,10 +32,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DOUBLE,
       allowNull: false,
       defaultValue: 0
-    }, 
+    }
   }, {
     sequelize,
-    tableName: 'Order-Details',
+    tableName: 'Order_Details',
     schema: 'public',
     timestamps: false,
     indexes: [
@@ -83,12 +73,4 @@ module.exports = function(sequelize, DataTypes) {
       },
     ]
   });
-  /*OrderDetails.belongsTo(Product, {
-    foreignKey: {
-      name: 'parentId',
-      allowNull: false,
-      onDelete: 'CASCADE', // This is the key part for cascading delete
-    },
-  })
-  return OrderDetails*/
 };
