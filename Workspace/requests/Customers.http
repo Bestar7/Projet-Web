@@ -27,6 +27,10 @@ Content-Type: application/json
 GET {{host}}/customers
 Accept: application/json
 
+### READ ALL Tricked
+GET {{host}}/customers
+Accept: application/json/cndtn
+
 ### READ WHERE
 GET {{host}}/customers/cndtn?Country=URL&City=FuckYou
 Accept: application/json
@@ -39,6 +43,14 @@ Accept: application/json
 DELETE {{host}}/customers/
 Accept: application/json
 
+### DELETE ALL Tricked
+DELETE {{host}}/customers/cndtn
+Accept: application/json
+
+### DELETE WHERE
+DELETE {{host}}/customers/cndtn?Country=URL&City=FuckYou
+Accept: application/json
+
 ### DELETE ONE
-DELETE {{host}}/customers/16
+DELETE {{host}}/customers/23
 Accept: application/json
