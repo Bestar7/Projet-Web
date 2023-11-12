@@ -41,7 +41,6 @@ function getAll(req, res){
  * @param {express.Response} res 
  */
 function getOne(req, res){
-  // TODO check req.params.OrderId
   sequelize.authenticate()
   .then(() => {
     return Orders.findByPk(req.params.OrderId);
