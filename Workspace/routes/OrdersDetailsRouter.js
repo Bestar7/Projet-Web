@@ -1,6 +1,7 @@
 const express = require("express")
 const { sequelize, DataTypes} = require("../util/database")
 const OrderDetails = require("../models/Order-Details")(sequelize, DataTypes)
+const { cndtnHandler } = require('./MiddleWare')
 
 var router = express.Router()
 
@@ -27,7 +28,7 @@ function createOne(req, res){
 function getAll(req, res){
   sequelize.authenticate()
   .then(() => {
-    return OrderDetails.findAll();
+    return OrderDetails.findAll(req.where);
   }).then((orderDetails) => {
     res.json(orderDetails)
   }).catch((err) => {
@@ -57,9 +58,9 @@ function getOne(req, res){
 function deleteAll(req, res){
   sequelize.authenticate()
   .then(() => {
-    OrderDetails.findAll()
+    OrderDetails.findAll(req.where)
     .then((result) => {
-      OrderDetails.destroy({where : {}}) // TODO verif destroy works
+      OrderDetails.destroy(req.where) // TODO verif destroy works
       return result
     }).then((orderDetails) => {res.json(orderDetails)})
   }).catch((err) => {
@@ -73,13 +74,17 @@ function deleteAll(req, res){
  */
 function deleteOne(req, res){
   sequelize.authenticate()
+  const cndtn = {where : {...req.params }}
   .then(() => {
-    return OrderDetails.destroy({where : {...req.params }}); // TODO verif
-    
-  }).then((orderDetails) => {
+    OrderDetails.findOne(cndtn)
+    .then((result) => {
+      OrderDetails.destroy(cndtn) // TODO delete cascade : il faut faire appel aux deux autre model. Appel direct js ou appel API ???
+      return result
+    }).then((orderDetails) => {
     res.json(orderDetails)
-  }).catch((err) => {
-    console.log("error in DELETE /orderDetails/one\n  "+err)
+    }).catch((err) => {
+      console.log("error in DELETE /orderDetails/one\n  "+err)
+    })
   })
 }
 
@@ -89,14 +94,19 @@ router.post("/", (req, res) => createOne(req, res))
 //READ ALL
 router.get("/", (req, res) => getAll(req, res))
 
+//READ WHERE
+router.get("/cndtn", cndtnHandler, (req, res) => getAll(req, res))
+
 //READ ONE
 router.get("/:OrderId/:ProductId", (req, res) => {getOne(req, res)})
 
+//DELETE ALL
+router.delete("/", cndtnHandler, (req, res) => {deleteAll(req, res)})
 
-//DELETE ALL // TODO return deleted
-router.delete("/", (req, res) => {deleteAll(req, res)})
+//DELETE WHERE
+router.delete("/cndtn", cndtnHandler, (req, res) => {deleteAll(req, res)})
 
-//DELETE ONE // TODO return deleted
+//DELETE ONE
 router.delete("/:OrderId/:ProductId", (req, res) => {deleteOne(req, res)})
 
 

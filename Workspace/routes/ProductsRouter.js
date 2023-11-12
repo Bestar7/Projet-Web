@@ -1,6 +1,7 @@
 const express = require("express")
 const { sequelize, DataTypes} = require("../util/database")
 const Products = require("../models/Products")(sequelize, DataTypes)
+const { cndtnHandler } = require('./MiddleWare')
 
 var router = express.Router()
 
@@ -28,7 +29,7 @@ function createOne(req, res){
 function getAll(req, res){
   sequelize.authenticate()
   .then(() => {
-    return Products.findAll()
+    return Products.findAll(req.where)
   }).then((products) => {
     res.json(products)
   }).catch((err) => {
@@ -59,9 +60,10 @@ function getOne(req, res){
 function deleteAll(req, res){
   sequelize.authenticate()
   .then(() => {
-    Products.findAll()
+    Products.findAll(req.where)
     .then((result) => {
-      Products.destroy({where : {}}) // TODO verif destroy works
+      Products.destroy(req.where)
+       // TODO verif destroy works
       return result
     }).then((products) => {res.json(products)})
   }).catch((err) => {
@@ -91,16 +93,21 @@ function deleteOne(req, res){
 router.post("/", (req, res) => createOne(req, res))
 
 //READ ALL
-router.get("/", (req, res) => getAll(req, res))
+router.get("/", cndtnHandler, (req, res) => getAll(req, res))
+
+//READ WHERE
+router.get("/cndtn", cndtnHandler, (req, res) => getAll(req, res))
 
 //READ ONE
 router.get("/:id", (req, res) => {getOne(req, res)})
 
+//DELETE ALL
+router.delete("/", cndtnHandler, (req, res) => {deleteAll(req, res)})
 
-//DELETE ALL // TODO return deleted
-router.delete("/", (req, res) => {deleteAll(req, res)})
+//DELETE WHERE
+router.delete("/cndtn", cndtnHandler, (req, res) => {deleteAll(req, res)})
 
-//DELETE ONE // TODO return deleted
+//DELETE ONE
 router.delete("/:id", (req, res) => {deleteOne(req, res)})
 
 
