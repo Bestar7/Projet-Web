@@ -1,6 +1,7 @@
 const express = require("express")
 const { sequelize, DataTypes} = require("../util/database")
 const Customers = require("../models/Customers")(sequelize, DataTypes)
+const { cndtnHandler } = require('./MiddleWare')
 
 var router = express.Router()
 
@@ -89,37 +90,12 @@ function deleteOne(req, res){
   })
 }
 
-// called as next put every calling return->next.ppp
-/** MIDDLEWARE cndtnHandler
- * @param {express.Request} req
- * @param {express.Response} res 
- * @param {express.NextFunction} next 
- */ // TODO check param (Year) exist in Customer.Module
-function cndtnHandler(req, res, next){
-  var cndtn = { where : { }}
-
-  for (var propName in req.query) {
-    if (req.query.hasOwnProperty(propName)) {
-      if (propName == "Pas Customer condition"){
-        res.send(
-
-        )
-      }
-
-      cndtn.where = {...cndtn.where, [propName] : req.query[propName]}
-      console.log("condition = ", propName, req.query[propName]);
-    }
-  }
-
-  req.where = cndtn
-  next()
-}
 
 //CREATE ONE
 router.post("/", (req, res) => createOne(req, res))
 
 //READ ALL
-router.get("/", (req, res) => getAll(req, res))
+router.get("/", cndtnHandler, (req, res) => getAll(req, res))
 
 //READ WHERE
 router.get("/cndtn", cndtnHandler, (req, res) => getAll(req, res))
@@ -128,11 +104,11 @@ router.get("/cndtn", cndtnHandler, (req, res) => getAll(req, res))
 router.get("/:id", (req, res) => {getOne(req, res)})
 
 
-//DELETE ALL
-router.delete("/", (req, res) => {deleteAll(req, res)})
+//DELETE ALL // TODO fix where undefined
+router.delete("/", cndtnHandler, (req, res) => {deleteAll(req, res)})
 
-//TODO DELETE WHERE (diff route /cdtn?.... ou dans delete all "/")
-router.delete("/cndtn", (req, res) => {deleteAll(req, res)})
+//DELETE WHERE
+router.delete("/cndtn", cndtnHandler, (req, res) => {deleteAll(req, res)})
 //deleteWhere(req, res)
 
 //DELETE ONE
