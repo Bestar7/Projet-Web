@@ -73,17 +73,17 @@ function deleteAll(req, res){
  * @param {express.Response} res 
  */
 function deleteOne(req, res){
-  sequelize.authenticate()
   const cndtn = {where : {...req.params }}
+  sequelize.authenticate()
   .then(() => {
     OrderDetails.findOne(cndtn)
     .then((result) => {
-      OrderDetails.destroy(cndtn) // TODO delete cascade : il faut faire appel aux deux autre model. Appel direct js ou appel API ???
+      OrderDetails.destroy(cndtn)
       return result
     }).then((orderDetails) => {
-    res.json(orderDetails)
+      res.json(orderDetails)
     }).catch((err) => {
-      console.log("error in DELETE /orderDetails/one\n  "+err)
+    console.log("error in DELETE /orderDetails/id\n  "+err);
     })
   })
 }

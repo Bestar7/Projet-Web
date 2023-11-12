@@ -74,17 +74,17 @@ function deleteAll(req, res){
  * @param {express.Response} res 
  */
 function deleteOne(req, res){
-  const id = parseInt(`${req.params.id}`)
+  const cndtn = {where : {...req.params }}
   sequelize.authenticate()
   .then(() => {
-    Employees.findOne({where : {"EmployeeId": id}})
+    Employees.findOne(cndtn)
     .then((result) => {
-      Employees.destroy({where : {"EmployeeId": id}})
+      Employees.destroy(cndtn)
       return result
     }).then((employees) => {
       res.json(employees)
     }).catch((err) => {
-      console.log("error in DELETE /employees/id\n  "+err)
+    console.log("error in DELETE /employees/id\n  "+err);
     })
   })
 }
@@ -99,7 +99,7 @@ router.get("/", cndtnHandler, (req, res) => getAll(req, res))
 router.get("/cndtn", cndtnHandler, (req, res) => getAll(req, res))
 
 //READ ONE
-router.get("/:id", (req, res) => {getOne(req, res)})
+router.get("/:EmployeeId", (req, res) => {getOne(req, res)})
 
 //DELETE ALL
 router.delete("/", cndtnHandler, (req, res) => {deleteAll(req, res)})
@@ -108,7 +108,7 @@ router.delete("/", cndtnHandler, (req, res) => {deleteAll(req, res)})
 router.delete("/cndtn", cndtnHandler, (req, res) => {deleteAll(req, res)})
 
 //DELETE ONE
-router.delete("/:id", (req, res) => {deleteOne(req, res)})
+router.delete("/:EmployeeId", (req, res) => {deleteOne(req, res)})
 
 
 module.exports = router;

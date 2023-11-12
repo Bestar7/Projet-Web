@@ -75,12 +75,12 @@ function deleteAll(req, res){
  * @param {express.Response} res 
  */
 function deleteOne(req, res){
-  const id = parseInt(`${req.params.id}`)
+  const cndtn = {where : {...req.params }}
   sequelize.authenticate()
   .then(() => {
-    Customers.findOne({where : {"CustomerId": id}})
+    Customers.findOne(cndtn)
     .then((result) => {
-      Customers.destroy({where : {"CustomerId": id}})
+      Customers.destroy(cndtn)
       return result
     }).then((customers) => {
       res.json(customers)
@@ -101,7 +101,7 @@ router.get("/", cndtnHandler, (req, res) => getAll(req, res))
 router.get("/cndtn", cndtnHandler, (req, res) => getAll(req, res))
 
 //READ ONE
-router.get("/:id", (req, res) => {getOne(req, res)})
+router.get("/:CustomerId", (req, res) => {getOne(req, res)})
 
 //DELETE ALL
 router.delete("/", cndtnHandler, (req, res) => {deleteAll(req, res)})
@@ -110,7 +110,7 @@ router.delete("/", cndtnHandler, (req, res) => {deleteAll(req, res)})
 router.delete("/cndtn", cndtnHandler, (req, res) => {deleteAll(req, res)})
 
 //DELETE ONE
-router.delete("/:id", (req, res) => {deleteOne(req, res)})
+router.delete("/:CustomerId", (req, res) => {deleteOne(req, res)})
 
 
 module.exports = router;

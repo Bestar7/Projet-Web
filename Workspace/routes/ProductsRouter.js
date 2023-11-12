@@ -58,7 +58,7 @@ function getOne(req, res){
  * @param {express.Response} res 
  */
 function deleteAll(req, res){
-  sequelize.authenticate()
+    sequelize.authenticate()
   .then(() => {
     Products.findAll(req.where)
     .then((result) => {
@@ -76,15 +76,18 @@ function deleteAll(req, res){
  * @param {express.Response} res 
  */
 function deleteOne(req, res){
-  const id = parseInt(`${req.params.id}`)
+  const cndtn = {where : {...req.params }}
   sequelize.authenticate()
   .then(() => {
-    //return Products.findByPk(id).detroy()
-    return Products.destroy({where : {"ProductId": id}})
-  }).then((products) => {
-    res.json(products)
-  }).catch((err) => {
+    Products.findOne(cndtn)
+    .then((result) => {
+      Products.destroy(cndtn)
+      return result
+    }).then((products) => {
+      res.json(products)
+    }).catch((err) => {
     console.log("error in DELETE /products/id\n  "+err);
+    })
   })
 }
 
@@ -99,7 +102,7 @@ router.get("/", cndtnHandler, (req, res) => getAll(req, res))
 router.get("/cndtn", cndtnHandler, (req, res) => getAll(req, res))
 
 //READ ONE
-router.get("/:id", (req, res) => {getOne(req, res)})
+router.get("/:ProductId", (req, res) => {getOne(req, res)})
 
 //DELETE ALL
 router.delete("/", cndtnHandler, (req, res) => {deleteAll(req, res)})
@@ -108,7 +111,7 @@ router.delete("/", cndtnHandler, (req, res) => {deleteAll(req, res)})
 router.delete("/cndtn", cndtnHandler, (req, res) => {deleteAll(req, res)})
 
 //DELETE ONE
-router.delete("/:id", (req, res) => {deleteOne(req, res)})
+router.delete("/:ProductId", (req, res) => {deleteOne(req, res)})
 
 
 module.exports = router;

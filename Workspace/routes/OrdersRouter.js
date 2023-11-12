@@ -74,15 +74,18 @@ function deleteAll(req, res){
  */
 function deleteOne(req, res){
   // TODO CHECK all req.params
+  const cndtn = {where : {...req.params }}
   sequelize.authenticate()
   .then(() => {
-    return Orders.destroy({
-      where : {...req.params}
-    });
-  }).then((orders) => {
-    res.json(orders)
-  }).catch((err) => {
-    console.log("error in DELETE /orders/id\n  "+err)
+    Orders.findOne(cndtn)
+    .then((result) => {
+      Orders.destroy(cndtn)
+      return result
+    }).then((orders) => {
+      res.json(orders)
+    }).catch((err) => {
+      console.log("error in DELETE /orders/id\n  "+err);
+    })
   })
 }
 
