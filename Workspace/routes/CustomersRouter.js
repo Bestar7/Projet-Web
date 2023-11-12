@@ -103,7 +103,7 @@ router.get("/cndtn", cndtnHandler, (req, res) => getAll(req, res))
 //READ ONE
 router.get("/:id", (req, res) => {getOne(req, res)})
 
-//DELETE ALL // TODO fix where undefined
+//DELETE ALL
 router.delete("/", cndtnHandler, (req, res) => {deleteAll(req, res)})
 
 //DELETE WHERE
