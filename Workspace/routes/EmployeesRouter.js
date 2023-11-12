@@ -79,7 +79,6 @@ function deleteOne(req, res){
     Employees.findOne({where : {"EmployeeId": id}})
     .then((result) => {
       Employees.destroy({where : {"EmployeeId": id}})
-      // destroy only return the number of delete
       return result
     }).then((employees) => {
       res.json(employees)
@@ -99,10 +98,12 @@ router.get("/", (req, res) => getAll(req, res))
 router.get("/:id", (req, res) => {getOne(req, res)})
 
 
-//DELETE ALL // TODO return deleted
+//DELETE ALL
 router.delete("/", (req, res) => {deleteAll(req, res)})
 
-//DELETE ONE // TODO return deleted
+//TODO DELETE WHERE (diff route /cdtn?.... ou dans delete all "/")
+
+//DELETE ONE
 router.delete("/:id", (req, res) => {deleteOne(req, res)})
 
 

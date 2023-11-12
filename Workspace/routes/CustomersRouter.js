@@ -59,9 +59,9 @@ function getOne(req, res){
 function deleteAll(req, res){
   sequelize.authenticate()
   .then(() => {
-    Customers.findAll()
+    Customers.findAll(req.where)
     .then((result) => {
-      Customers.destroy({where : {}}) // TODO verif destroy works
+      Customers.destroy(req.where) // TODO verif destroy works
       return result
     }).then((customers) => {res.json(customers)})
   }).catch((err) => {
@@ -77,12 +77,15 @@ function deleteOne(req, res){
   const id = parseInt(`${req.params.id}`)
   sequelize.authenticate()
   .then(() => {
-    //return Customers.findByPk(id).detroy()
-    return Customers.destroy({where : {"CustomerId": id}})
-  }).then((customers) => {
-    res.json(customers)
-  }).catch((err) => {
+    Customers.findOne({where : {"CustomerId": id}})
+    .then((result) => {
+      Customers.destroy({where : {"CustomerId": id}})
+      return result
+    }).then((customers) => {
+      res.json(customers)
+    }).catch((err) => {
     console.log("error in DELETE /customers/id\n  "+err);
+    })
   })
 }
 
