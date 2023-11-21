@@ -1,10 +1,10 @@
-const Sequelize = require('sequelize'); // pour l'auto-complete
+const {Sequelize, DataTypes} = require('sequelize'); // pour l'auto-complete
 
 /**
  * 
- * @param {Sequelize.Sequelize} sequelize 
- * @param {Employees} DataTypes 
- * @returns
+ * @param {Sequelize} sequelize 
+ * @param {DataTypes} DataTypes 
+ * @returns 
  */
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('Employees', {
