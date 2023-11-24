@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 const { Sequelize, DataTypes } = require('sequelize'); // pour l'auto-complete
+=======
+const {Sequelize, DataTypes} = require('sequelize'); // pour l'auto-complete
+>>>>>>> 600b8cee0884b6a4db4ac936a996d9dc92342eaf
 
 /**
  * 
  * @param {Sequelize} sequelize 
+<<<<<<< HEAD
  * @param {Orders} DataTypes 
+=======
+ * @param {DataTypes} DataTypes 
+>>>>>>> 600b8cee0884b6a4db4ac936a996d9dc92342eaf
  * @returns 
  */
 module.exports = function(sequelize, DataTypes) {
@@ -34,14 +42,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true
     },
-    RequiredDate: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
-    ShippedDate: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
+
+    RequiredDate: DataTypes.DATE,
+    ShippedDate: DataTypes.DATE,
+
     Freight: {
       type: DataTypes.DECIMAL(19,4),
       allowNull: true,

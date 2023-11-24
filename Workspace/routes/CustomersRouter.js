@@ -14,7 +14,7 @@ function createOne(req, res){
   // TODO req.body.eachField != null
   sequelize.authenticate()
   .then(() => {
-    return Customers.create({...req.body});
+    return Customers.create({...req.body}, {logging: console.log});
   }).then((customers) => {
     res.json(customers)
   }).catch((err) => {
@@ -29,7 +29,11 @@ function createOne(req, res){
 function getAll(req, res){
   sequelize.authenticate()
   .then(() => {
+<<<<<<< HEAD
     return Customers.findAll(req.where)
+=======
+    return Customers.findAll({logging: console.log})
+>>>>>>> 600b8cee0884b6a4db4ac936a996d9dc92342eaf
   }).then((customers) => {
     res.json(customers)
   }).catch((err) => {

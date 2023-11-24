@@ -1,10 +1,19 @@
+<<<<<<< HEAD
 const { Sequelize, DataTypes } = require('sequelize'); // pour l'auto-complete
+=======
+const {Sequelize, DataTypes} = require('sequelize'); // pour l'auto-complete
+>>>>>>> 600b8cee0884b6a4db4ac936a996d9dc92342eaf
 
 /**
  * 
  * @param {Sequelize} sequelize 
+<<<<<<< HEAD
  * @param {Employees} DataTypes 
  * @returns
+=======
+ * @param {DataTypes} DataTypes 
+ * @returns 
+>>>>>>> 600b8cee0884b6a4db4ac936a996d9dc92342eaf
  */
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('Employees', {

@@ -8,3 +8,7 @@ Products
 
 Alesio-Prisma, Corentin-Knex, Moi-Sequelize
 NodeJs, Express, 
+
+
+TODO
+https://sequelize.org/docs/v6/core-concepts/getters-setters-virtuals/
