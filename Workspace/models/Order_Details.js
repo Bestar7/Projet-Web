@@ -1,19 +1,10 @@
-<<<<<<< HEAD:Workspace/models/Order_Details.js
 const { Sequelize, DataTypes } = require('sequelize'); // pour l'auto-complete
-=======
-const {Sequelize, DataTypes} = require('sequelize'); // pour l'auto-complete
->>>>>>> 600b8cee0884b6a4db4ac936a996d9dc92342eaf:Workspace/models/Order-Details.js
 
 /**
  * 
  * @param {Sequelize} sequelize 
-<<<<<<< HEAD:Workspace/models/Order_Details.js
- * @param {Employees} DataTypes 
- * @returns
-=======
  * @param {DataTypes} DataTypes 
  * @returns 
->>>>>>> 600b8cee0884b6a4db4ac936a996d9dc92342eaf:Workspace/models/Order-Details.js
  */
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('Order_Details', {
