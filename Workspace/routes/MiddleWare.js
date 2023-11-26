@@ -5,7 +5,7 @@
  * @param {express.NextFunction} next 
  */ // TODO check param (Year) exist in Customer.Module
 function cndtnHandler(req, res, next){
-  var cndtn = { where : { }}
+  var cndtn = { where : { }, returning: true}
 
   for (var propName in req.query) {
     if (req.query.hasOwnProperty(propName)) {

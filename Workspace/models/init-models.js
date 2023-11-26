@@ -23,6 +23,7 @@ function initModels(sequelize) {
 
   return {
     Customers,
+    Employees,
     Order_Details,
     Orders,
     Products,

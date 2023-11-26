@@ -32,3 +32,6 @@ app.use('/orders', OrdersRouter)
 
 const ProductsRouter = require('./routes/ProductsRouter')
 app.use('/products', ProductsRouter)
+
+const MoreRouter = require('./routes/MoreRouter')
+app.use('/more', MoreRouter)

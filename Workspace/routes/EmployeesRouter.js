@@ -41,10 +41,9 @@ function getAll(req, res){
  * @param {express.Response} res 
  */
 function getOne(req, res){
-  const id = parseInt(`${req.params.id}`)
   sequelize.authenticate()
   .then(() => {
-    return Employees.findByPk(id);
+    return Employees.findByPk(req.params.EmployeeId);
   }).then((employees) => {
     res.json(employees)
   }).catch((err) => {

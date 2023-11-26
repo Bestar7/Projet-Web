@@ -7,7 +7,8 @@ const { Sequelize, DataTypes } = require('sequelize'); // pour l'auto-complete
  * @returns 
  */
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Customers', {
+  return sequelize.define('Customers', 
+  {
     CustomerId: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -16,11 +17,18 @@ module.exports = function(sequelize, DataTypes) {
     },
     CompanyName: {
       type: DataTypes.STRING(40),
-      allowNull: false
+      allowNull: false,
+      validate : {
+        len: [5, 20],
+        customValidator(value){
+          if(!value.includes('b'))
+            throw new Error('CompanyName doit contenir un "b" (custom Validator in Customers.js)');
+        }
+      }
     },
     ContactName: {
       type: DataTypes.STRING(30),
-      allowNull: true
+      allowNull: true,
     },
     ContactTitle: {
       type: DataTypes.STRING(30),
@@ -91,6 +99,12 @@ module.exports = function(sequelize, DataTypes) {
           { name: "Region" },
         ]
       },
-    ]
+    ],
+    hooks: {
+      beforeValidate: (customer) => {
+        console.log(customer.CompanyName+" will be validated")
+        customer.PostalCode = "1354P"
+      }
+    }
   });
 };

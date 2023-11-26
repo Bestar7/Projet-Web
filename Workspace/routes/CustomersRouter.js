@@ -37,15 +37,76 @@ function getAll(req, res){
   })
 }
 
+/** READ CONTAINS
+ * @param {express.Request} req
+ * @param {express.Response} res 
+ */
+function getAllLitteral(req, res){
+  sequelize.authenticate()
+  .then(() => {
+    return Customers.findAll({
+      attributes : {
+        include: [
+          [sequelize.literal(`
+            (SELECT c."CompanyName" 
+            FROM "public"."Customers" c 
+            WHERE c."CompanyName" LIKE '%cou%' 
+            LIMIT 1)
+          `), "Coucou Company Constante"]
+        ]
+      }
+    })
+  }).then((customers) => {
+    res.json(customers)
+  }).catch((err) => {
+    console.log("error in GET /customers/\n  "+err)
+  })
+}
+
 /** READ ONE
  * @param {express.Request} req
  * @param {express.Response} res 
  */
 function getOne(req, res){
-  const id = parseInt(`${req.params.id}`)
   sequelize.authenticate()
   .then(() => {
-    return Customers.findByPk(id);
+    return Customers.findByPk(req.params.CustomerId);
+  }).then((customers) => {
+    res.json(customers)
+  }).catch((err) => {
+    console.log("error in GET /customers/\n  "+err)
+  })
+}
+
+/** UPDATE ONE SQL
+ * @param {express.Request} req
+ * @param {express.Response} res 
+ */
+function updateOneSql(req, res){
+  sequelize.authenticate()
+  .then(() => {
+    return Customers.findByPk(req.params.CustomerId);
+  }).then((foundCust) => {
+    foundCust.update({...req.body})
+    return foundCust.save()
+  }).then((customers) => {
+    res.json(customers)
+  }).catch((err) => {
+    console.log("error in GET /customers/\n  "+err)
+  })
+}
+
+/** UPDATE ONE JS
+ * @param {express.Request} req
+ * @param {express.Response} res 
+ */
+function updateOneJs(req, res){
+  sequelize.authenticate()
+  .then(() => {
+    return Customers.update(
+      {...req.body},
+      {where : {CustomerId: req.params.CustomerId}, returning: true },
+    )
   }).then((customers) => {
     res.json(customers)
   }).catch((err) => {
@@ -75,13 +136,13 @@ function deleteAll(req, res){
  * @param {express.Response} res 
  */
 function deleteOne(req, res){
-  const cndtn = {where : {...req.params }}
+  //const cndtn = {where : {...req.params }, returning}
   sequelize.authenticate()
   .then(() => {
-    Customers.findOne(cndtn)
+    Customers.findOne(req.where)
     .then((result) => {
-      Customers.destroy(cndtn)
-      return result
+      return Customers.destroy(req.where)
+      //return result
     }).then((customers) => {
       res.json(customers)
     }).catch((err) => {
@@ -100,8 +161,17 @@ router.get("/", cndtnHandler, (req, res) => getAll(req, res))
 //READ WHERE
 router.get("/cndtn", cndtnHandler, (req, res) => getAll(req, res))
 
+//READ ALL LITTERAL
+router.get("/litteral", (req, res) => {getAllLitteral(req, res)})
+
 //READ ONE
 router.get("/:CustomerId", (req, res) => {getOne(req, res)})
+
+//UPDATE ONE SQL
+router.put("/sql/:CustomerId", (req, res) => {updateOneSql(req, res)})
+
+//UPDATE ONE
+router.put("/js/:CustomerId", (req, res) => {updateOneJs(req, res)})
 
 //DELETE ALL
 router.delete("/", cndtnHandler, (req, res) => {deleteAll(req, res)})
@@ -110,7 +180,7 @@ router.delete("/", cndtnHandler, (req, res) => {deleteAll(req, res)})
 router.delete("/cndtn", cndtnHandler, (req, res) => {deleteAll(req, res)})
 
 //DELETE ONE
-router.delete("/:CustomerId", (req, res) => {deleteOne(req, res)})
+router.delete("/:CustomerId", cndtnHandler, (req, res) => {deleteOne(req, res)})
 
 
 module.exports = router;
